@@ -1,0 +1,15 @@
+{
+  "lineWidthPixels": 4,
+  "drawLine": true,
+  "lineColorHex": "#FFFFFF",
+  "startCorner": "BottomRight",
+  "drawCursorCircle": false,
+  "cursorCircleRadiusPixels": 24,
+  "enableBigCursor": false,
+  "bigCursorImagePath": null,
+  "bigCursorScalePixels": 128,
+  "bigCursorRotationDegrees": 0,
+  "displayDeviceName": null,
+  "whitelistEnabled": false,
+  "whitelistedApplications": []
+}

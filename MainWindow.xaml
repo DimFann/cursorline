@@ -1,0 +1,25 @@
+﻿<Window x:Class="CursorLine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CursorLine"
+        mc:Ignorable="d"
+        Title="CursorLine" WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="True" Background="Transparent" Topmost="True"
+        ShowInTaskbar="False" ShowActivated="False" WindowStartupLocation="Manual"
+        Cursor="Arrow" ForceCursor="True">
+    <Canvas Background="Transparent" IsHitTestVisible="False">
+        <Line x:Name="OverlayLine" StrokeThickness="4"
+              StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+        <Ellipse x:Name="CursorCircle" Visibility="Collapsed"
+                 Fill="Transparent" StrokeThickness="4" />
+        <Image x:Name="BigCursorImage" Visibility="Collapsed"
+               Stretch="Fill" IsHitTestVisible="False">
+            <Image.RenderTransform>
+                <RotateTransform x:Name="BigCursorRotationTransform"
+                                 CenterX="0" CenterY="0" />
+            </Image.RenderTransform>
+        </Image>
+    </Canvas>
+</Window>
