@@ -2,11 +2,12 @@
 
 A transparent, click-through, always-on-top line overlay. The line runs from the selected monitor's bottom-right corner to the cursor hotspot, and includes some customization options.
 
-## Install
+## Install & Run
 
 1) [Download](https://github.com/DimFann/cursorline/releases/download/latest/CursorLine.zip)
 2) Extract CursorLine.exe from zip.
 3) Run CursorLine.exe
+4) CursorLine will appear in the system tray with a small "CL" icon.
 
 ## Customize
 
