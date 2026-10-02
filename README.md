@@ -1,36 +1,12 @@
 # CursorLine
 
-A transparent, click-through, always-on-top line overlay for the primary monitor. The line runs from the monitor's bottom-right corner to the cursor hotspot and uses a configurable solid color and width.
+A transparent, click-through, always-on-top line overlay. The line runs from the selected monitor's bottom-right corner to the cursor hotspot, and includes some customization options.
 
-## Run
+## Install
 
-```powershell
-dotnet run
-```
-
-The overlay starts immediately with a CursorLine icon in the notification area. Double-click the icon, or right-click it and choose **Show overlay** or **Hide overlay** to toggle the line. Choose **Customize** to open the appearance settings. Choose **Exit** in the tray menu to close the app completely. Closing the overlay window hides it to the tray.
-
-Only one CursorLine instance runs per Windows session; additional launches exit without creating another tray icon.
-
-## Configure
-
-Use **Customize** in the tray menu to choose the display, line color, width, and starting corner. Toggle **Draw main line** to show or hide the line independently of the cursor circle and big cursor. You can also enable a circle around the cursor and set its radius. To use a custom cursor, import a PNG, enable **Enable big cursor**, and set its maximum image dimension from 16 to 512 pixels with the live-updating scale slider. Adjust the rotation from 0° to 360° with the rotation slider; the image rotates around its top-left corner, which stays pinned to the cursor tip. The image keeps its aspect ratio. An unset or unavailable display selection falls back to the primary monitor. Enable **Only show on whitelisted applications** and add executable process names (with or without `.exe`) to restrict visibility to those foreground apps. This uses foreground-change notifications, not render-loop polling. Valid changes preview immediately; **Save** persists them in `%LOCALAPPDATA%\CursorLine\settings.json`, while **Cancel** or closing the window reverts the preview. Width is 1-100 pixels; circle radius is 1-2000 pixels.
-The line, optional cursor circle, and optional big cursor render only while the cursor is within the selected display's bounds.
-
-## Distribution
-
-Run the PowerShell publish script:
-
-```powershell
-# CursorLine
-
-CursorLine draws a thin, click-through line from a chosen corner of a monitor to the cursor. It runs quietly in the Windows notification area.
-
-## Start
-
-Run `dist\CursorLine.exe`. It is a self-contained Windows x64 app and does not require a separate .NET installation. Only one instance runs at a time.
-
-Use the CursorLine tray icon to show or hide the overlay, customize it, or exit. Closing the overlay hides it to the tray; choose **Exit** from the tray menu to quit.
+1) [Download](https://github.com/DimFann/cursorline/releases/download/latest/CursorLine.zip)
+2) Extract CursorLine.exe from zip.
+3) Run CursorLine.exe
 
 ## Customize
 
@@ -45,12 +21,55 @@ Choose **Customize** from the tray menu. Available options:
 
 Valid changes preview as you edit. Choose **Save** to keep them; **Cancel** or closing the window reverts them. Settings are saved in `%LOCALAPPDATA%\CursorLine\settings.json`.
 
-The line and circle are hidden while the cursor is outside the selected display. For tablet pen tracking, use a CursorLine-bridge-enabled VoiDPlugins WindowsInk build. With that plugin, set Windows Ink `Sync` on and `ForcedSync` off to avoid duplicate mouse movement. The stock plugin tracks through the Windows mouse cursor and may conflict with mouse-remapping tools during pen strokes.
+The line and circle are hidden while the cursor is outside the selected display.
+
+## Compatibility
+
+### Wacom/Huion/XP-Pen Proprietary Drivers
+
+Didn't test/validate these.
+
+### OpenTabletDriver
+
+Some applications like AutoHotkey may compete for tablet input positions resulting in noticeable delay, at least with OpenTabletDriver. Modified VoiDTools's WindowsInk plugin to include a bridge for cursorline to get around this. Provided Build + Modified src in release.
+[VoiDPlugins by Kuuuube](https://github.com/Kuuuube/VoiDPlugins)
+
+If you're experiencing these issues while using Kuuuube's WindowsInk plugin in Absolute Mode:
+
+1) [Download](https://github.com/DimFann/cursorline/releases/download/latest/OpenTabletDriver_WindowsInk-CursorLineBridge.zip) and Install the modified Windows Ink plugin from the latest release.
+2) Modify `%LOCALAPPDATA%\OpenTabletDriver\settings.json`, setting Sync=true, and ForcedSync = false
+```json
+      "OutputMode": {
+        "Path": "VoiDPlugins.OutputMode.WinInkAbsoluteMode",
+        "Settings": [
+          {
+            "Property": "Sync",
+            "Value": true
+          },
+          {
+            "Property": "ForcedSync",
+            "Value": false
+          }
+        ],
+        "Enable": true
+      },
+```
+This should allow CursorLine to share the cursor position with the tablet driver directly, eliminating the need for a duplicate input stream/conflict with AHK, etc.
+
+### etc.
+
+No guarantee anti-cheat or whatever in games won't mind this, best recommendation is to close the software if you're not drawing.
 
 ## Build
 
-Run `publish.ps1` from PowerShell to create or update the self-contained executable in `dist\CursorLine.exe`. The app icon and default settings are embedded; the `dist` folder needs only that executable.
+Run the PowerShell publish script:
+
+```powershell
+./publish.ps1
+```
+This will generate a self-contained exe under /dist.
 
 ## Credits
 
 Developed with assistance from GitHub Copilot.
+
